@@ -18,15 +18,16 @@ const List = ({url}) => {
     }
   }
 
-  const removeFood = async (foodId) =>{
-    const response = await axios.post(`${url}/api/food/remove`,{id:foodId})
-    await fetchList();
-    if(response.data.success){
-      toast.success(response.data.message)
-    }else{
-      toast.error('Error');
+  const removeFood = async (id) => {
+    console.log("Deleting food item with ID:", id); // Debugging log
+
+    try {
+        const response = await axios.post(`${url}/api/food/remove`, { id });
+        console.log(response.data); // Debugging log
+    } catch (error) {
+        console.error("Error deleting food:", error);
     }
-  }
+};
 
   useEffect(()=>{
     fetchList();

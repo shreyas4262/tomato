@@ -2,17 +2,15 @@ import userModel from "../models/userModel.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
-
+import dotenv from 'dotenv/config'
 //login user
 const loginUser = async (req,res) =>{
     const {email, password} = req.body;
     try {
         const user = await userModel.findOne({email});
-
         if(!user){
            return res.json({success:false, message:'User does not exist'}) 
         }
-
         const isMatch = await bcrypt.compare(password,user.password)
 
         if(!isMatch){
@@ -28,11 +26,14 @@ const loginUser = async (req,res) =>{
 }
 
 const createToken = (id) =>{
-    return jwt.sign({id},process.env.JWT_SECRET)
+    const token = jwt.sign({ id: id }, process.env.JWT_SECRET || "Hacker", { expiresIn: "1d" });
+    return token
 }
 
 //register user
 const registerUser = async (req, res) =>{
+
+
     const {name,password,email} = req.body;
     try {
 
