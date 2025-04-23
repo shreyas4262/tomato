@@ -16,7 +16,10 @@ const placeOrder = async (req, res) =>{
             address: req.body.address
         })
 
+
+
         await newOrder.save();
+        console.log(newOrder)
         await userModel.findByIdAndUpdate(req.body.userId,{cartData:{}});
 
         const line_items = req.body.items.map((item)=>({
@@ -66,8 +69,8 @@ const verifyOrder = async (req, res) =>{
             res.json({success:false, message:"Not Paid"})
         }
     } catch (error) {
-        console.log(error)
-        res.json({success:false, message:"Error"})
+        console.log(error.message)
+        res.json({success:false, message:error})
     }
 }
 

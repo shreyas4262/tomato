@@ -1,11 +1,15 @@
-import express from 'express'
-import { addToCart, removeFromCart, getCart } from '../controllers/cartController.js'
-import authMiddleware from '../middleware/auth.js';
+import mongoose from 'mongoose';
 
-const cartRouter = express.Router();
+const orderSchema = new mongoose.Schema({
+    userId:{type:String, required: true},
+    items:{type:Array, required: true},
+    amount:{type:Number, required: true},
+    address:{type:Object, required: true},
+    status:{type:String, default:"Food Processing"},
+    date:{type:Date, default:Date.now()},
+    payment:{type:Boolean, default:false},
+})
 
-cartRouter.post("/add", authMiddleware, addToCart)
-cartRouter.post("/remove",authMiddleware, removeFromCart)
-cartRouter.post("/get",authMiddleware, getCart)
+const orderModel = mongoose.models.order || mongoose.model("order", orderSchema)
 
-export default cartRouter;
+export default orderModel;

@@ -9,8 +9,21 @@
     width: max(10%,80px);
 }
 
-.navbar .profile{
+.profile-container{
+    object-fit: contain;
+    overflow: hidden;
     width: 50px;
+    position: relative;
     height: 50px;
+    background: #000;
     border-radius: 50%;
+}
+
+.navbar .profile{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    scale: 1.5;
+    transform: translateY(17%);
+    
 }
