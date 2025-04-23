@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     const [validCart, setValidCart] = useState({});
     const [user, setUser] = useState(null); // ✅ Add user state
-    const url = "http://localhost:4000";
+    const url = "https://tomato-backend-r8kj.onrender.com";
     const [token, setToken] = useState("");
 
     const addToCart = async (itemId) => {
